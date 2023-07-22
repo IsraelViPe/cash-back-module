@@ -1,12 +1,19 @@
 {
   "name": "cash-back-module",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "feature de administração de cash-back",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compose: up":"",
+    "compose: down": ""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IsraelViPe/cash-back-module"
+  },
+  "author": "Israel Pereira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IsraelViPe/cash-back-module/issues"
+  },
+  "homepage": "https://github.com/IsraelViPe/cash-back-module/blob/master/README.md"
 }
