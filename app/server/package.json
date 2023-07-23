@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prebuild": "rm -rf ./dist",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "dev": "ts-node-dev src/server.ts",
+    "prestart": "npm run build",
     "start": "node dist/src/server.js"
   },
   "keywords": [],
