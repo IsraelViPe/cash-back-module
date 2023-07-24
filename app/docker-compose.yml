@@ -1,0 +1,59 @@
+version: '3'
+name: 'desafio-modulo-cash-back'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: db-cash-back
+    platform: linux/x86_64
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    restart: 'always'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+
+  server:
+    container_name: cash-back-server
+    build: ./server
+    tty: true
+    stdin_open: true
+    command: sh
+    working_dir: /server
+    volumes:
+      -./app/server:./server
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL= ${DATABASE_URL}
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:${PORT}"]
+      timeout: 10s
+      retries: 5
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    container_name: cash-back-client
+    build: ./web
+    working_dir: /web
+    volumes:
+      -./app/web:./web
+    env_file:
+      - .env
+    ports:
+      - ${WEB_PORT}:${WEB_PORT}
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:${WEB_PORT}"]
+      timeout: 10s
+      retries: 5
+    depends_on:
+      server:
+        condition: service_healthy
+    
