@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  email String @unique
+  cpf_cnpj String @unique
+  transactions Transaction[]
+}
+
+model Transaction {
+  id Int @id @default(autoincrement())
+  accountId Int 
+  accountPf Account  @relation(fields: [accountId], references: [id])
+  date DateTime @default(now())
+  value Float
+
+  cashBack CashBack?
+}
+
+model CashBack {
+  id Int @id @default(autoincrement())
+  transactionId Int @unique
+  transaction Transaction @relation(fields: [transactionId], references: [id])
+  rate Float
+}
