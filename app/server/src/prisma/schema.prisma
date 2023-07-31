@@ -23,7 +23,7 @@ model Transaction {
   accountId Int 
   accountPf Account  @relation(fields: [accountId], references: [id])
   date DateTime @default(now())
-  value Float
+  value Decimal @db.Decimal(9,2)
 
   cashBack CashBack?
 }
@@ -32,5 +32,5 @@ model CashBack {
   id Int @id @default(autoincrement())
   transactionId Int @unique
   transaction Transaction @relation(fields: [transactionId], references: [id])
-  rate Float
+  rate Float @db.Float()
 }

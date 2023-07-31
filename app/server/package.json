@@ -9,7 +9,11 @@
     "lint": "eslint . --ext .ts",
     "dev": "ts-node-dev src/server.ts",
     "prestart": "npm run build",
+    "start:prima" : "npx prisma migrate dev && npm run start",
     "start": "node dist/src/server.js"
+  },
+  "prisma": {
+    "schema": "./src/prisma/schema.prisma"
   },
   "keywords": [],
   "author": "",

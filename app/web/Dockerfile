@@ -6,6 +6,8 @@ COPY package*.json .
 
 RUN npm install
 
+EXPOSE ${WEB_PORT}
+
 COPY . .
 
 CMD ["npm", "run", "dev"]
